@@ -17,6 +17,12 @@ service:
     source:
       provider: GitHub
       repo: horsfieldsa/wordpress-fargate
+    acceptance:
+      disabled: false
+      environment: acceptance
+    production:
+      disabled: true
+      environment: production
     notify:
       - shhorsfi@amazon.com
   database:
