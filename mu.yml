@@ -1,0 +1,28 @@
+environments:
+  - name: acceptance
+    provider: ecs-fargate
+  - name: production
+    provider: ecs-fargate
+service:
+  port: 8080
+  healthEndpoint: /
+  pathPatterns:
+  - /*
+  environment:
+    WORDPRESS_DB_HOST: ${DatabaseEndpointAddress}:${DatabaseEndpointPort}
+    WORDPRESS_DB_USER: ${DatabaseMasterUsername}
+    WORDPRESS_DB_PASSWORD: ${DatabaseMasterPassword}
+    WORDPRESS_DB_NAME: ${DatabaseName}
+  pipeline:
+    source:
+      provider: GitHub
+      repo: horsfieldsa/wordpress-fargate
+    notify:
+      - shhorsfi@amazon.com
+  database:
+      name: wordpress
+      engine: aurora
+      instanceClass: db.t2.small
+      iamAuthentication: false
+      masterUsername: admin
+      allocatedStorage: 10
