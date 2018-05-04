@@ -4,7 +4,7 @@ environments:
   - name: production
     provider: ecs-fargate
 service:
-  port: 8080
+  port: 80
   healthEndpoint: /
   pathPatterns:
   - /*
