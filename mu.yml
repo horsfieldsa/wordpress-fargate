@@ -2,9 +2,15 @@
 environments:
   - name: acceptance
     provider: ecs-fargate
+    loadbalancer:
+      hostedzone: shhorsfi.myinstance.com
+      name: wordpress-stg
   - name: production
     provider: ecs-fargate
-
+    loadbalancer:
+      hostedzone: shhorsfi.myinstance.com
+      name: wordpress-prd
+          
 # CloudFormation Template Overrides
 templates:
   mu-service-wordpress-fargate-acceptance:
