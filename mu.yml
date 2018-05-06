@@ -1,8 +1,26 @@
+# Environment Configuration
 environments:
   - name: acceptance
     provider: ecs-fargate
   - name: production
     provider: ecs-fargate
+
+# CloudFormation Template Overrides
+templates:
+  mu-service-wordpress-fargate-acceptance:
+    Resources:
+      ElbTargetGroup:
+        Properties:
+          Matcher:
+            HttpCode: 200-302
+  mu-service-wordpress-fargate-production:
+    Resources:
+      ElbTargetGroup:
+        Properties:
+          Matcher:
+            HttpCode: 200-302
+
+# Service Configuration
 service:
   port: 80
   healthEndpoint: /

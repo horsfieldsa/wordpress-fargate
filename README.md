@@ -18,11 +18,11 @@ Mu)
 
 ## TODO:
 
-* ALB TG Health-Checks for HTTP 302 or new /health endpoint.
 * Pretty Diagrams
-* Domain configuration
-* Shared storage for Config/Themes/Etc. (EFS)
-* CloudFront
+* Domain Configuration
+* Shared storage for Config/Themes/Etc. (EFS) (Docker local mount to EFS?)
+* Create EFS Mount in Template
+* CloudFront Configuration
 * Better Secrets Management
 
 ## References
