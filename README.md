@@ -11,8 +11,8 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 
 ## Limitations
 
-1. Currently you need to manually activate and configure the WP Offload S3 Lite Plugin.
-2. Currently you need to manually create an IAM user for the WP Offload S3 Lite Plugin.
+1. The WP Offload S3 Lite Plugin doesn't support ECS Task IAM Roles. To work-around this
+we need to create an IAM user, and configure access keys.
 
 ## TODO:
 

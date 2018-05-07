@@ -13,13 +13,29 @@ environments:
 
 # CloudFormation Template Overrides
 templates:
-  mu-iam-service-wordpress-fargate-acceptance:
+  mu-service-wordpress-fargate-acceptance:
     Resources:
-      EcsTaskRole:
+      ElbTargetGroup:
         Properties:
+          Matcher:
+            HttpCode: 200-302
+          TargetGroupAttributes:
+          - Key: stickiness.enabled
+            Value: true
+          - Key: stickiness.type
+            Value: lb_cookie
+          - Key: stickiness.lb_cookie.duration_seconds
+            Value: '21600'
+      UserUploadBucket:
+        Type: AWS::S3::Bucket
+      ImageUploadUser:
+        Type: AWS::IAM::User
+        Properties:
+          Path: "/"
           Policies:
           - PolicyName: content-upload
             PolicyDocument:
+              Version: '2012-10-17'
               Statement:
               - Effect: Allow
                 Action:
@@ -36,21 +52,10 @@ templates:
                 - s3:ListAllMyBuckets
                 - s3:ListBucketVersions
                 Resource: '*'
-  mu-service-wordpress-fargate-acceptance:
-    Resources:
-      ElbTargetGroup:
-        Properties:
-          Matcher:
-            HttpCode: 200-302
-          TargetGroupAttributes:
-          - Key: stickiness.enabled
-            Value: true
-          - Key: stickiness.type
-            Value: lb_cookie
-          - Key: stickiness.lb_cookie.duration_seconds
-            Value: '21600'
-      UserUploadBucket:
-        Type: AWS::S3::Bucket
+        ImageUploadUserAccessKey:
+           Type: AWS::IAM::AccessKey
+           Properties:
+             UserName: ${ImageUploadUser}
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
@@ -69,7 +74,7 @@ templates:
 
 # Service Configuration
 service:
-  name: wordpress-fargate                   # The unique name of the service (default: the name of the directory that mu.yml was in)
+  name: wordpress-fargate
   desiredCount: 2
   minSize: 2
   maxSize: 10
@@ -87,6 +92,8 @@ service:
     WORDPRESS_DB_NAME: ${DatabaseName}
     USER_UPLOAD_BUCKET: ${UserUploadBucket}
     USER_UPLOAD_REGION: us-west-2
+    USER_UPLOAD_KEY: !Ref ImageUploadUserAccessKey
+    USER_UPLOAD_SAK: !GetAtt ImageUploadUserAccessKey.SecretAccessKey
   pipeline:
     source:
       provider: GitHub
