@@ -26,6 +26,8 @@ templates:
             Value: lb_cookie
           - Key: stickiness.lb_cookie.duration_seconds
             Value: '21600'
+      UserUploadBucket:
+        Type: AWS::S3::Bucket
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
@@ -39,7 +41,9 @@ templates:
             Value: lb_cookie
           - Key: stickiness.lb_cookie.duration_seconds
             Value: '21600'
-
+      UserUploadBucket:
+        Type: AWS::S3::Bucket
+        
 # Service Configuration
 service:
   port: 80
@@ -51,6 +55,7 @@ service:
     WORDPRESS_DB_USER: ${DatabaseMasterUsername}
     WORDPRESS_DB_PASSWORD: ${DatabaseMasterPassword}
     WORDPRESS_DB_NAME: ${DatabaseName}
+    USER_UPLOAD_BUCKET: ${UserUploadBucket}
   pipeline:
     source:
       provider: GitHub
