@@ -14,7 +14,7 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 * Pretty Diagrams
 * Shared storage for User Uploads (S3)
 * CloudFront Configuration
-* Better Secrets Management
+* Better Secrets Management (Pull from Parameter Store in Entrypoint Script?)
 
 ## References
 
