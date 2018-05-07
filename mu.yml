@@ -73,6 +73,11 @@ service:
   healthEndpoint: /
   pathPatterns:
   - /*
+  cpu: 1024
+  memory: 1024
+  targetCPUUtilization: 75
+  minSize: 2
+  maxSize: 10
   environment:
     WORDPRESS_DB_HOST: ${DatabaseEndpointAddress}:${DatabaseEndpointPort}
     WORDPRESS_DB_USER: ${DatabaseMasterUsername}
