@@ -14,7 +14,7 @@ VOLUME /var/www/html
 ENV WORDPRESS_VERSION 4.9.5
 ENV WORDPRESS_UPSTREAM_VERSION 4.9.5
 ENV WORDPRESS_SHA1 6992f19163e21720b5693bed71ffe1ab17a4533a
-ENV S3_CLOUDFRONT_PLUGIN_VERSION 1.3.2
+ENV PLUGIN_S3_CLOUDFRONT_VERSION 1.3.2
 
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_UPSTREAM_VERSION}.tar.gz \
@@ -24,7 +24,7 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_UPS
 	&& chown -R www-data:www-data /usr/src/wordpress
 
 # Download S3 and CloudFront plugin
-RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${S3_CLOUDFRONT_PLUGIN_VERSION}.zip \
+RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${PLUGIN_S3_CLOUDFRONT_VERSION}.zip \
   && unzip amazon-s3-and-cloudfront.zip -d /usr/src/wordpress/wp-content/plugins \
 	&& rm amazon-s3-and-cloudfront.zip
 
