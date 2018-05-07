@@ -13,21 +13,8 @@ environments:
 
 # CloudFormation Template Overrides
 templates:
-  mu-service-wordpress-fargate-acceptance:
+  mu-iam-service-wordpress-fargate-acceptance:
     Resources:
-      ElbTargetGroup:
-        Properties:
-          Matcher:
-            HttpCode: 200-302
-          TargetGroupAttributes:
-          - Key: stickiness.enabled
-            Value: true
-          - Key: stickiness.type
-            Value: lb_cookie
-          - Key: stickiness.lb_cookie.duration_seconds
-            Value: '21600'
-      UserUploadBucket:
-        Type: AWS::S3::Bucket
       ImageUploadUser:
         Type: AWS::IAM::User
         Properties:
@@ -56,6 +43,21 @@ templates:
         Type: AWS::IAM::AccessKey
         Properties:
           UserName: ${ImageUploadUser}
+  mu-service-wordpress-fargate-acceptance:
+    Resources:
+      ElbTargetGroup:
+        Properties:
+          Matcher:
+            HttpCode: 200-302
+          TargetGroupAttributes:
+          - Key: stickiness.enabled
+            Value: true
+          - Key: stickiness.type
+            Value: lb_cookie
+          - Key: stickiness.lb_cookie.duration_seconds
+            Value: '21600'
+      UserUploadBucket:
+        Type: AWS::S3::Bucket
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
