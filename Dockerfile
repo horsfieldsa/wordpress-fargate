@@ -4,7 +4,7 @@ LABEL maintainer="Scott Horsfield <shhorsfi@amazon.com>"
 RUN a2enmod rewrite
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install gd
 RUN docker-php-ext-install mysqli
@@ -23,8 +23,10 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_UPS
 	&& rm wordpress.tar.gz \
 	&& chown -R www-data:www-data /usr/src/wordpress
 
-# download s3 and cloudfront plugin
-RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${S3_CLOUDFRONT_PLUGIN_VERSION}.zip
+# download S3 and CloudFront plugin
+RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${S3_CLOUDFRONT_PLUGIN_VERSION}.zip \
+  && unzip amazon-s3-and-cloudfront.zip -d /usr/src/wordpress/wp-plugins \
+	&& rm amazon-s3-and-cloudfront.zip
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
