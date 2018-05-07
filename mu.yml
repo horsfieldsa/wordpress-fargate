@@ -20,8 +20,12 @@ templates:
           Matcher:
             HttpCode: 200-302
           TargetGroupAttributes:
-            Key: stickiness.enabled
+          - Key: stickiness.enabled
             Value: true
+          - Key: stickiness.type
+            Value: lb_cookie
+          - Key: stickiness.lb_cookie.duration_seconds
+            Value: '180'
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
@@ -29,8 +33,13 @@ templates:
           Matcher:
             HttpCode: 200-302
           TargetGroupAttributes:
-            Key: stickiness.enabled
+          - Key: stickiness.enabled
             Value: true
+          - Key: stickiness.type
+            Value: lb_cookie
+          - Key: stickiness.lb_cookie.duration_seconds
+            Value: '180'
+                        
 # Service Configuration
 service:
   port: 80
