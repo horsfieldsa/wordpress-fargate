@@ -12,8 +12,7 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 ## TODO:
 
 * Pretty Diagrams
-* Shared storage for Config/Themes/Etc. (EFS) (Docker local mount to EFS?)
-* Create EFS Mount in Template
+* Shared storage for User Uploads (S3)
 * CloudFront Configuration
 * Better Secrets Management
 
