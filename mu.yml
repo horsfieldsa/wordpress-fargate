@@ -43,7 +43,7 @@ templates:
             Value: '21600'
       UserUploadBucket:
         Type: AWS::S3::Bucket
-        
+
 # Service Configuration
 service:
   port: 80
@@ -56,6 +56,7 @@ service:
     WORDPRESS_DB_PASSWORD: ${DatabaseMasterPassword}
     WORDPRESS_DB_NAME: ${DatabaseName}
     USER_UPLOAD_BUCKET: ${UserUploadBucket}
+    USER_UPLOAD_REGION: us-west-2
   pipeline:
     source:
       provider: GitHub
