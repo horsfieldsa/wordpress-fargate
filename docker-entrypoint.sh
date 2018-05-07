@@ -86,7 +86,7 @@ set_config 'DB_HOST' "$WORDPRESS_DB_HOST"
 set_config 'DB_USER' "$WORDPRESS_DB_USER"
 set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
-set_config 'AWS_USE_EC2_IAM_ROLE' "true"
+set_config 'AS3CF_AWS_USE_EC2_IAM_ROLE' "true"
 set_config 'AS3CF_BUCKET' "$USER_UPLOAD_BUCKET"
 set_config 'AS3CF_REGION' "$USER_UPLOAD_REGION"
 
