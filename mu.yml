@@ -69,15 +69,17 @@ templates:
 
 # Service Configuration
 service:
+  name: wordpress-fargate                   # The unique name of the service (default: the name of the directory that mu.yml was in)
+  desiredCount: 2
+  minSize: 2
+  maxSize: 10
   port: 80
-  healthEndpoint: /
-  pathPatterns:
-  - /*
   cpu: 1024
   memory: 1024
   targetCPUUtilization: 75
-  minSize: 2
-  maxSize: 10
+  healthEndpoint: /
+  pathPatterns:
+  - /*
   environment:
     WORDPRESS_DB_HOST: ${DatabaseEndpointAddress}:${DatabaseEndpointPort}
     WORDPRESS_DB_USER: ${DatabaseMasterUsername}
