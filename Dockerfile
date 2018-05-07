@@ -23,7 +23,8 @@ RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_UPS
 	&& rm wordpress.tar.gz \
 	&& chown -R www-data:www-data /usr/src/wordpress
 
-RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${WORDPRESS_UPSTREAM_VERSION}.zip
+# download s3 and cloudfront plugin
+RUN curl -o amazon-s3-and-cloudfront.zip https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.${S3_CLOUDFRONT_PLUGIN_VERSION}.zip
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
