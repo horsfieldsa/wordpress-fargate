@@ -10,7 +10,7 @@ environments:
     loadbalancer:
       hostedzone: shhorsfi.myinstance.com
       name: wordpress-prd
-          
+
 # CloudFormation Template Overrides
 templates:
   mu-service-wordpress-fargate-acceptance:
@@ -19,13 +19,18 @@ templates:
         Properties:
           Matcher:
             HttpCode: 200-302
+          TargetGroupAttributes:
+            Key: stickiness.enabled
+            Value: true
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
         Properties:
           Matcher:
             HttpCode: 200-302
-
+          TargetGroupAttributes:
+            Key: stickiness.enabled
+            Value: true
 # Service Configuration
 service:
   port: 80
