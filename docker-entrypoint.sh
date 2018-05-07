@@ -87,10 +87,10 @@ set_config 'DB_USER' "$WORDPRESS_DB_USER"
 set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
 
-ECHO "/** Configuration for WP Offload S3 Lite Plugin */" >> wp-config.php
-ECHO "define('AS3CF_AWS_USE_EC2_IAM_ROLE',       'true');" >> wp-config.php
-ECHO "define('AS3CF_BUCKET',       '$USER_UPLOAD_BUCKET');" >> wp-config.php
-ECHO "define('AS3CF_REGION',       '$USER_UPLOAD_REGION');" >> wp-config.php
+echo "/** Configuration for WP Offload S3 Lite Plugin */ " >> wp-config.php
+echo "define('AS3CF_AWS_USE_EC2_IAM_ROLE',       'true');" >> wp-config.php
+echo "define('AS3CF_BUCKET',       							 '$USER_UPLOAD_BUCKET');" >> wp-config.php
+echo "define('AS3CF_REGION',       							 '$USER_UPLOAD_REGION');" >> wp-config.php
 
 # allow any of these "Authentication Unique Keys and Salts." to be specified via
 # environment variables with a "WORDPRESS_" prefix (ie, "WORDPRESS_AUTH_KEY")
