@@ -25,7 +25,7 @@ templates:
           - Key: stickiness.type
             Value: lb_cookie
           - Key: stickiness.lb_cookie.duration_seconds
-            Value: '180'
+            Value: '21600'
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
@@ -38,8 +38,8 @@ templates:
           - Key: stickiness.type
             Value: lb_cookie
           - Key: stickiness.lb_cookie.duration_seconds
-            Value: '180'
-                        
+            Value: '21600'
+
 # Service Configuration
 service:
   port: 80
