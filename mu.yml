@@ -52,10 +52,10 @@ templates:
                 - s3:ListAllMyBuckets
                 - s3:ListBucketVersions
                 Resource: '*'
-        ImageUploadUserAccessKey:
-           Type: AWS::IAM::AccessKey
-           Properties:
-             UserName: ${ImageUploadUser}
+      ImageUploadUserAccessKey:
+        Type: AWS::IAM::AccessKey
+        Properties:
+          UserName: ${ImageUploadUser}
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
