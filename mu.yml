@@ -42,7 +42,7 @@ templates:
       ImageUploadUserAccessKey:
         Type: AWS::IAM::AccessKey
         Properties:
-          UserName: ${ImageUploadUser}
+          UserName: !Ref ImageUploadUser
   mu-service-wordpress-fargate-acceptance:
     Resources:
       ElbTargetGroup:
