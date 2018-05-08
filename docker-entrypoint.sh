@@ -92,9 +92,6 @@ secret_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
 output=$(aws ssm get-parameter --name ${SSM_USER_UPLOAD_SAK_PARAM} --query Parameter.Value)
 secret_access_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
 
-echo "${secret_key}"
-echo "${secret_access_key}"
-
 echo "/** Configuration for WP Offload S3 Lite Plugin */ " >> wp-config.php
 echo "define('AS3CF_BUCKET',       							 '$USER_UPLOAD_BUCKET');" >> wp-config.php
 echo "define('AS3CF_REGION',       							 '$USER_UPLOAD_REGION');" >> wp-config.php
