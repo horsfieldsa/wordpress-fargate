@@ -87,9 +87,9 @@ set_config 'DB_USER' "$WORDPRESS_DB_USER"
 set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
 
-output=$(aws ssm get-parameter --name wordpress-accesskey --query Parameter.Value)
+output=$(aws ssm get-parameter --name ${SSM_USER_UPLOAD_KEY_PARAM} --query Parameter.Value)
 secret_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
-output=$(aws ssm get-parameter --name wordpress-secretaccesskey --query Parameter.Value)
+output=$(aws ssm get-parameter --name ${SSM_USER_UPLOAD_SAK_PARAM} --query Parameter.Value)
 secret_access_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
 
 echo "${secret_key}"
@@ -98,8 +98,8 @@ echo "${secret_access_key}"
 echo "/** Configuration for WP Offload S3 Lite Plugin */ " >> wp-config.php
 echo "define('AS3CF_BUCKET',       							 '$USER_UPLOAD_BUCKET');" >> wp-config.php
 echo "define('AS3CF_REGION',       							 '$USER_UPLOAD_REGION');" >> wp-config.php
-echo "define('AS3CF_AWS_ACCESS_KEY_ID',       	 '$USER_UPLOAD_KEY');" >> wp-config.php
-echo "define('AS3CF_AWS_SECRET_ACCESS_KEY',      '$USER_UPLOAD_SAK');" >> wp-config.php
+echo "define('AS3CF_AWS_ACCESS_KEY_ID',       	 '$secret_key');" >> wp-config.php
+echo "define('AS3CF_AWS_SECRET_ACCESS_KEY',      '$secret_access_key');" >> wp-config.php
 
 # allow any of these "Authentication Unique Keys and Salts." to be specified via
 # environment variables with a "WORDPRESS_" prefix (ie, "WORDPRESS_AUTH_KEY")

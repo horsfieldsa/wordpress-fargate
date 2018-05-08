@@ -134,8 +134,8 @@ service:
     WORDPRESS_DB_NAME: ${DatabaseName}
     USER_UPLOAD_BUCKET: ${UserUploadBucket}
     USER_UPLOAD_REGION: us-west-2
-    USER_UPLOAD_KEY: REPLACE_WITH_SECRET
-    USER_UPLOAD_SAK: REPLACE_WITH_SECRET
+    SSM_USER_UPLOAD_KEY_PARAM: wordpress-accesskey       # Replace with name of paramter containing secret
+    SSM_USER_UPLOAD_SAK_PARAM: wordpress-secretaccesskey # Replace with name of paramter containing secret
   pipeline:
     source:
       provider: GitHub
