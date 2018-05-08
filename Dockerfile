@@ -9,6 +9,11 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev unzip && rm -r
 	&& docker-php-ext-install gd
 RUN docker-php-ext-install mysqli
 
+# install the awscli
+RUN apt-get update -q
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy python-pip groff-base
+RUN pip install awscli
+
 VOLUME /var/www/html
 
 ENV WORDPRESS_VERSION 4.9.5
