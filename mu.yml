@@ -18,8 +18,6 @@ templates:
       ImageUploadUser:
         Type: AWS::IAM::User
         Properties:
-          UserName:
-            Fn::Sub: ${Namespace}-service-${ServiceName}-${EnvironmentName}-user-${AWS::Region}
           Path: "/"
           Policies:
           - PolicyName: content-upload
@@ -41,11 +39,6 @@ templates:
                 - s3:ListAllMyBuckets
                 - s3:ListBucketVersions
                 Resource: '*'
-      ImageUploadUserAccessKey:
-        Type: AWS::IAM::AccessKey
-        Properties:
-          UserName:
-          - Ref: ImageUploadUser
   mu-service-wordpress-fargate-acceptance:
     Resources:
       ElbTargetGroup:
