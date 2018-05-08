@@ -15,6 +15,16 @@ environments:
 templates:
   mu-iam-service-wordpress-fargate-acceptance:
     Resources:
+      EcsTaskRole:
+        Properties:
+          Policies:
+          - PolicyName: get-secrets
+            PolicyDocument:
+              Statement:
+              - Effect: Allow
+                Action:
+                - ssm:GetParameter
+                Resource: '*'
       ImageUploadUser:
         Type: AWS::IAM::User
         Properties:
