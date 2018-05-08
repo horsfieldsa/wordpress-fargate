@@ -40,6 +40,11 @@ we need to create an IAM user, and configure access keys. Currently the access k
 secret are stored in parameter store. The name of the parameters are defined as environment
 variables in mu.yml.
 2. You have to manually activate the WP Offload S3 Lite Plugin, and configure some of its settings.
+3. Plugins are not handled in a way that they can be applied across all tasks without re-building
+the docker container image. If Fargate handled peristent data-volumes this could be solved, or the provider
+could be changed from ECS-FARGATE to ECS, and the templates could be updated to handle an EFS volume. This would
+require a process for building a custom AMI or bootstrap an ECS optimized AMI. [Tutorial](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_efs.htmlm)
+4. Wordpress upgrades are not handled (this is tracked as an issue in the official Docker image).
 
 ## TODO:
 
