@@ -5,25 +5,25 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 
 1. Clone the repo locally.
 2. Install [stelligent/mu](https://github.com/stelligent/mu).
-3. Run `mu pipeline up`.
-4. Input a [GitHub OAuth Token](https://github.com/settings/tokens) when prompted.
-5. See [stelligent/mu](https://github.com/stelligent/mu) documentation for details.
+3. Create an IAM user and configure access keys.
+4. Put the access key id and secret in separate parameters in parameter store.
+5. Update mu.yml with the names of the parameters.
+4. Run `mu pipeline up`.
+5. Input a [GitHub OAuth Token](https://github.com/settings/tokens) when prompted.
+6. See [stelligent/mu](https://github.com/stelligent/mu) documentation for details.
 
 ## Limitations
 
 1. The WP Offload S3 Lite Plugin doesn't support ECS Task IAM Roles. To work-around this
-we need to create an IAM user, and configure access keys.
-2. Unable to get Environment vars to properly reference AccessKey and SecretAccessKey,
-to work around this currently you need to manually create a new task definition, assign
-the environment variables, and update the service. Yes this sucks and I'm working on fixing
-it with either env-kms, or pulling secrets from parameter store.
+we need to create an IAM user, and configure access keys. Currently the access key id and
+secret are stored in parameter store. The name of the parameters are defined as environment
+variables in mu.yml.
 
 ## TODO:
 
+* Auto-put secrets in parameter store as part of template.
 * Pretty Diagrams
-* Shared storage for User Uploads (S3)
 * CloudFront Configuration
-* Better Secrets Management (Pull from Parameter Store in Entrypoint Script?)
 
 ## References
 

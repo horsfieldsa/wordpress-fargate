@@ -87,11 +87,13 @@ set_config 'DB_USER' "$WORDPRESS_DB_USER"
 set_config 'DB_PASSWORD' "$WORDPRESS_DB_PASSWORD"
 set_config 'DB_NAME' "$WORDPRESS_DB_NAME"
 
+# get access keys for content upload from ssm parameter store
 output=$(aws ssm get-parameter --name ${SSM_USER_UPLOAD_KEY_PARAM} --query Parameter.Value)
 secret_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
 output=$(aws ssm get-parameter --name ${SSM_USER_UPLOAD_SAK_PARAM} --query Parameter.Value)
 secret_access_key=$(echo "${output}" | sed -e 's/^"//' -e 's/"$//')
 
+# add WP Offload S3 Lite plugin configuration to wp-config.php
 echo "/** Configuration for WP Offload S3 Lite Plugin */ " >> wp-config.php
 echo "define('AS3CF_BUCKET',       							 '$USER_UPLOAD_BUCKET');" >> wp-config.php
 echo "define('AS3CF_REGION',       							 '$USER_UPLOAD_REGION');" >> wp-config.php
