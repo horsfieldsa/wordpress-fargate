@@ -94,7 +94,7 @@ service:
     WORDPRESS_DB_NAME: ${DatabaseName}
     USER_UPLOAD_BUCKET: ${UserUploadBucket}
     USER_UPLOAD_REGION: us-west-2
-    USER_UPLOAD_KEY: !Ref ImageUploadUserAccessKey
+    USER_UPLOAD_KEY: ${ImageUploadUserAccessKey}
     USER_UPLOAD_SAK: !GetAtt ImageUploadUserAccessKey.SecretAccessKey
   pipeline:
     source:
