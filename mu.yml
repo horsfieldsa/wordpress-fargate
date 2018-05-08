@@ -58,6 +58,36 @@ templates:
             Value: '21600'
       UserUploadBucket:
         Type: AWS::S3::Bucket
+  mu-iam-service-wordpress-fargate-production:
+    Resources:
+      ImageUploadUser:
+        Type: AWS::IAM::User
+        Properties:
+          Policies:
+          - PolicyName: content-upload
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+              - Effect: Allow
+                Action:
+                - s3:GetObject
+                - s3:GetObjectVersion
+                - s3:GetObjectVersionTagging
+                - s3:DeleteObject
+                - s3:DeleteObjectVersion
+                - s3:DeleteObjectTagging
+                - s3:PutObject
+                - s3:PutObjectAcl
+                - s3:PutObjectTagging
+                - s3:ListBucket
+                - s3:ListAllMyBuckets
+                - s3:ListBucketVersions
+                Resource: '*'
+      ImageUploadUserAccessKey:
+        Type: AWS::IAM::AccessKey
+        Properties:
+          UserName:
+            Ref: 'ImageUploadUser'
   mu-service-wordpress-fargate-production:
     Resources:
       ElbTargetGroup:
@@ -94,8 +124,8 @@ service:
     WORDPRESS_DB_NAME: ${DatabaseName}
     USER_UPLOAD_BUCKET: ${UserUploadBucket}
     USER_UPLOAD_REGION: us-west-2
-    USER_UPLOAD_KEY: ${ImageUploadUserAccessKey}
-    USER_UPLOAD_SAK: !GetAtt ImageUploadUserAccessKey.SecretAccessKey
+    USER_UPLOAD_KEY: REPLACE_WITH_SECRET
+    USER_UPLOAD_SAK: REPLACE_WITH_SECRET
   pipeline:
     source:
       provider: GitHub

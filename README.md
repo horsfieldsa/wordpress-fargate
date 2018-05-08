@@ -13,6 +13,10 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 
 1. The WP Offload S3 Lite Plugin doesn't support ECS Task IAM Roles. To work-around this
 we need to create an IAM user, and configure access keys.
+2. Unable to get Environment vars to properly reference AccessKey and SecretAccessKey,
+to work around this currently you need to manually create a new task definition, assign
+the environment variables, and update the service. Yes this sucks and I'm working on fixing
+it with either env-kms, or pulling secrets from parameter store.
 
 ## TODO:
 
@@ -20,16 +24,6 @@ we need to create an IAM user, and configure access keys.
 * Shared storage for User Uploads (S3)
 * CloudFront Configuration
 * Better Secrets Management (Pull from Parameter Store in Entrypoint Script?)
-* Enable and Configure WP Offload S3 Lite Plugin
-* Update Task Role to include required permissions.
-* Configure plugin
-
-```
-## Bucket Name?
-AWS_USE_EC2_IAM_ROLE: Not defined
-AS3CF_BUCKET: Not defined
-AS3CF_REGION: Not defined
-```
 
 ## References
 
