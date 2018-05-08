@@ -45,7 +45,7 @@ templates:
         Type: AWS::IAM::AccessKey
         Properties:
           UserName:
-            Fn::Sub: ${Namespace}-service-${ServiceName}-${EnvironmentName}-user-${AWS::Region}
+          - Ref: ImageUploadUser
   mu-service-wordpress-fargate-acceptance:
     Resources:
       ElbTargetGroup:
