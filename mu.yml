@@ -70,6 +70,16 @@ templates:
         Type: AWS::S3::Bucket
   mu-iam-service-wordpress-fargate-production:
     Resources:
+      EcsTaskRole:
+        Properties:
+          Policies:
+          - PolicyName: get-secrets
+            PolicyDocument:
+              Statement:
+              - Effect: Allow
+                Action:
+                - ssm:GetParameter
+                Resource: '*'
       ImageUploadUser:
         Type: AWS::IAM::User
         Properties:
