@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.2-apache
 LABEL maintainer="Scott Horsfield <shhorsfi@amazon.com>"
 
 RUN a2enmod rewrite
