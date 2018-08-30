@@ -4,8 +4,12 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
 ## Getting Started
 
 1. Clone the repo locally.
-2. Install [stelligent/mu](https://github.com/stelligent/mu).
-3. Create an IAM user and configure access keys. User should have at least the following permissions:
+2. Install [AWS CLI](https://aws.amazon.com/cli/).
+3. Create an [IAM Dev User](https://console.aws.amazon.com/iam/home?#/users) with the following Policy `AdministratorAccess`
+4. Run AWS Configure `aws configure`
+	* Put In your access key and secret from step 3 when prompted 
+5. Install [stelligent/mu](https://github.com/stelligent/mu).
+6. Create an [IAM Application User](https://console.aws.amazon.com/iam/home?#/users) and configure access keys. User should have at least the following permissions:
     * s3:GetObject
     * s3:GetObjectVersion
     * s3:GetObjectVersionTagging
@@ -20,14 +24,16 @@ An example project that deploys Wordpress to ECS Fargate w/ an Aurora MySql data
     * s3:ListBucketVersions
 
     * NOTE: The template will create a user with these permissions that you can assign an access key to, however this requires two deployments (one to create the access key, then a manual step, then another to set the environment variable)
-4. Put the access key id and secret in separate parameters in parameter store.
-5. Update mu.yml with the names of the parameters.
-4. Run `mu pipeline up`.
-5. Input a [GitHub OAuth Token](https://github.com/settings/tokens) when prompted.
-6. See [stelligent/mu](https://github.com/stelligent/mu) documentation for details.
-7. Logon to Wordpress (Create Admin/Password).
-8. Enable WP Offload S3 Lite Plugin
-9. Enable the following Settings:
+7. Put the access key id and secret in separate parameters in parameter store which can be found in [EC2 Systems Manager](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Parameters:sort=Name)
+8. Update mu.yml with the names of the parameters, just use the name of key, the docker file will call getParameter to decode the actual value, no brackets are needed
+9. Create a new Hosted zone for your domain in Route 52 and ensure your domain is set up to use amazon's nameservers.
+10. Replace shhorsfi.myinstance.com in  mu.yml with the domain of your hosted zone
+11. Run `mu pipeline up`.
+	* Input a [GitHub OAuth Token](https://github.com/settings/tokens) when prompted.
+	* See [stelligent/mu](https://github.com/stelligent/mu) documentation for details.
+12. Logon to Wordpress by navigating to your domain (Create Admin/Password).
+13. Enable WP Offload S3 Lite Plugin
+14. Enable the following Settings:
     * Copy Files to S3
     * Rewrite File URLs
     * CloudFront or Custom Domain
